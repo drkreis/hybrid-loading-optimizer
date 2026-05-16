@@ -4,11 +4,19 @@ Educational prototype of a **hybrid quantum-classical system** for a simplified 
 
 The project demonstrates how a logistics task can be converted into a small binary optimization problem and solved with a simplified QAOA-like workflow on a local Qiskit Aer simulator.
 
+## What's new in this version
+
+- Language selection: **English / Russian**.
+- Input mode selection:
+  - use `data/sample_input.json`;
+  - enter cargo weights and truck capacities manually.
+- Brute-force validation for small examples.
+
 ## Problem
 
-There are 3 cargo items and 2 trucks.
+Cargo items must be assigned to exactly **2 trucks**.
 
-Each cargo item must be assigned to exactly one truck:
+Each cargo item is encoded by one bit:
 
 - bit `0` means the cargo item is assigned to truck 0;
 - bit `1` means the cargo item is assigned to truck 1.
@@ -30,6 +38,7 @@ hybrid-loading-optimizer/
 ├── data/
 │   └── sample_input.json
 └── outputs/
+    └── example_result.txt
 ```
 
 ## Requirements
@@ -68,15 +77,54 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-## Run
+## Run: interactive mode
 
 ```bash
 python main.py
 ```
 
+The program will ask:
+
+```text
+Choose language / Выберите язык:
+1 — Русский
+2 — English
+
+Choose input mode:
+1 — Use data/sample_input.json
+2 — Enter data manually
+```
+
+## Run: non-interactive examples
+
+English interface, JSON file input:
+
+```bash
+python main.py --lang en --input-mode file
+```
+
+Russian interface, JSON file input:
+
+```bash
+python main.py --lang ru --input-mode file
+```
+
+Manual input mode:
+
+```bash
+python main.py --lang ru --input-mode manual
+```
+
+Example manual values:
+
+```text
+Cargo weights / Веса грузов: 4 5 6
+Truck capacities / Грузоподъемность машин: 9 10
+```
+
 ## Input data format
 
-The input file is located at:
+The default input file is located at:
 
 ```text
 data/sample_input.json
@@ -146,7 +194,7 @@ input data -> cost function -> QAOA circuit -> classical optimizer -> measured b
 
 - Supports exactly 2 trucks.
 - Uses one qubit per cargo item.
-- Suitable only for small educational examples.
+- Manual mode is limited to small examples, recommended: 2–8 cargo items.
 - Industrial-scale loading problems require decomposition, stronger classical baselines, more advanced QUBO construction, and integration with WMS/ERP/TMS systems.
 
 ## Suggested next steps
