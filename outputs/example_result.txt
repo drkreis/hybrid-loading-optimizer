@@ -1,0 +1,1 @@
+Expected output example is described in README.md. Exact QAOA counts may differ due to probabilistic measurements.
